@@ -9,6 +9,10 @@ pipeline {
         EC2_USER='ubuntu'
         EC2_HOST='3.144.75.135'
     }
+    
+    triggers {
+        githubPush() // Trigger a build when changes are pushed to any branch
+    }
 
     stages {
         stage('Python Dployment') {
