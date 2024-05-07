@@ -10,7 +10,7 @@ Graded Assignment on CI/CD Pipeline
 
   - Fork the provided Python web application repository on GitHub (provide a link to a sample Python web application repository).
   - Clone the forked repository into your Jenkins server.
-  - calculator.py and test_calculator.py
+  # calculator.py and test_calculator.py
 
 3. Jenkins Pipeline:
 
@@ -20,8 +20,7 @@ Graded Assignment on CI/CD Pipeline
     - Build: Install dependencies using pip.
     - Test: Run unit tests using a testing framework like pytest.
     - Deploy: If tests pass, deploy the application to a staging environment.
-  
-    - Jenkins_conf_file
+    # Jenkins_conf_file
 
 4. Triggers:
 
