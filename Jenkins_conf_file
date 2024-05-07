@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    environment {
+        GIT_BRANCH='main'
+        GITHUB_URL='https://github.com/igSpanser/Jenkins_python_assignment.git'
+        EC2_DIR='/home/ubuntu'
+        FLASK_SCRIPT='calculator.py'
+        SSH_KEY='Shrutika_jenkins'
+        EC2_USER='ubuntu'
+        EC2_HOST='3.144.75.135'
+    }
+
+    stages {
+        stage('Python Dployment') {
+            steps {
+                echo 'This is Calculator application'
+            }
+        }
+        stage('checkout'){
+            steps {
+                git branch: env.GIT_BRANCH, url: env.GITHUB_URL
+            }
+        }
+        stage('Connect EC2'){
+            steps {
+                sshagent(credentials: ['Shrutika_jenkins']){
+                     sh '''
+                       ssh -o StrictHostKeyChecking=no ubuntu@3.144.75.135 '
+                       pwd
+                       ls
+                       '
+                     '''
+                }
+            }
+        }
+        stage('Build'){
+            steps {
+                // Install dependencies using pip
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Test') {
+            steps {
+                
+                // Run unit tests using pytest
+                sh 'python3 test_calculator.py'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Add deployment commands here
+                echo 'Deployment step...'
+                // Example: deploy to staging environment
+                sh 'echo "Deploying to staging environment..."'
+                // Add your deployment commands here
+            }
+        }
+    }
+}
